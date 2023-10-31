@@ -66,6 +66,24 @@ node packages.js apply --package [PACKAGE_NAME] --target [TARGET_FOLDER]
 
 This will copy all the files from the package to the target folder.
 
+### Example
+
+```shell
+node packages.js create --name newPackage 
+```
+```shell
+node packages.js add --package newPackage --file ../tempLog.txt
+```
+```shell
+node packages.js remove --package newPackage --file tempLog.txt
+```
+```shell
+node packages.js add --package newPackage --file ../tempLog.txt
+```
+```shell
+node packages.js apply --package newPackage --target ../tempFolder
+```
+
 ## Contributing
 
 Feel free to contribute to this project by creating issues or submitting pull requests.
