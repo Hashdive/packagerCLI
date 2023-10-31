@@ -31,7 +31,7 @@ It adds new packages to the included /packages folder. You can then add or remov
 To create a new package, run the following command:
 
 ```shell
-node script.js create --name [PACKAGE_NAME]
+node packages.js create --name [PACKAGE_NAME]
 ```
 
 This will create a new package with the specified name.
@@ -41,7 +41,7 @@ This will create a new package with the specified name.
 To add a file to an existing package, run the following command:
 
 ```shell
-node script.js add --package [PACKAGE_NAME] --file [FILE_PATH]
+node packages.js add --package [PACKAGE_NAME] --file [FILE_PATH]
 ```
 
 This will add the specified file to the package.
@@ -51,7 +51,7 @@ This will add the specified file to the package.
 To remove a file from an existing package, run the following command:
 
 ```shell
-node script.js remove --package [PACKAGE_NAME] --file [FILE_NAME]
+node packages.js remove --package [PACKAGE_NAME] --file [FILE_NAME]
 ```
 
 This will remove the specified file from the package.
@@ -61,7 +61,7 @@ This will remove the specified file from the package.
 To apply the contents of a package to a target folder, run the following command:
 
 ```shell
-node script.js apply --package [PACKAGE_NAME] --target [TARGET_FOLDER]
+node packages.js apply --package [PACKAGE_NAME] --target [TARGET_FOLDER]
 ```
 
 This will copy all the files from the package to the target folder.
