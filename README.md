@@ -4,6 +4,8 @@
 
 The Packager CLI is a simple command-line utility that allows you to create packages, add files to packages, remove files from packages, and apply packages to target folders. It's a convenient tool for managing sets of files that need to be bundled together for various purposes.
 
+It adds new packages to the included /packages folder. You can then add or remove files to those packages (which are simply subfolders of /packages). Finally, 'apply' the files in the package to a target destination folder.
+
 ## Features
 
 - **Create Packages:** Create a new package with a specified name.
