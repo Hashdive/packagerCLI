@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+      "myDependency": "^0.24.0"
+    }
+  }

@@ -4,12 +4,12 @@
     "description": "Move files from and to folders from the command line",
     "main": "packages.js",
     "scripts": {
-      "start": "node packages.js"
+        "start": "node packages.js"
     },
     "dependencies": {
-      "yargs": "^17.2.1"
+        "axios": "^0.24.0",
+        "yargs": "^17.2.1"
     },
     "author": "Your Name",
     "license": "MIT"
-  }
-  
+}

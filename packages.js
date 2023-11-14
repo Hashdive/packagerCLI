@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
 
+const { execSync } = require('child_process');
+
 const argv = yargs(process.argv.slice(2))
   .command('create', 'Create a new package', {
     name: {
@@ -61,10 +63,20 @@ function createPackage(name) {
       fs.mkdirSync(packageDir);
     }
     fs.mkdirSync(packagePath);
+
+    // Create metadata.json
     fs.writeFileSync(path.join(packagePath, 'metadata.json'), JSON.stringify({ files: [] }));
+
+    // Create dependencies.json
+    const dependenciesContent = {
+      dependencies: {}
+    };
+    fs.writeFileSync(path.join(packagePath, 'dependencies.json'), JSON.stringify(dependenciesContent));
+
     console.log(`Created package: ${name}`);
   }
 }
+
 
 
 function addFileToPackage(packageName, filePath) {
@@ -98,9 +110,26 @@ function removeFileFromPackage(packageName, fileName) {
 }
 
 function applyPackage(packageName, targetFolder) {
-  const packagePath = path.join(packageDir, packageName);
+  const packagePath = path.join(__dirname, 'packages', packageName);
   const metadataPath = path.join(packagePath, 'metadata.json');
   const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+  const dependenciesPath = path.join(packagePath, 'dependencies.json');
+  console.log(`Checking for file: ${dependenciesPath}`);
+  if (fs.existsSync(dependenciesPath)) {
+    // Read the dependencies and install them
+    const dependenciesContent = fs.readFileSync(dependenciesPath, 'utf-8');
+    const dependencies = JSON.parse(dependenciesContent);
+    console.log(`Installing npm dependencies for package: ${packageName}`);
+    for (const dependency in dependencies.dependencies) {
+      const version = dependencies.dependencies[dependency];
+      const installCommand = `npm install --prefix ${__dirname} ${dependency}@${version}`;
+      console.log(`Running: ${installCommand}`);
+     execSync(installCommand, { stdio: 'inherit' });
+    }
+    console.log('Installation complete.');
+  } else {
+    console.log(`File not found: ${dependenciesPath}`);
+  }
   metadata.files.forEach((file) => {
     fs.copyFileSync(path.join(packagePath, file), path.join(targetFolder, file));
     console.log(`Copied file: ${file} to target: ${targetFolder}`);
